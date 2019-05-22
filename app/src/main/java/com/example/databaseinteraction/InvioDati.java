@@ -20,8 +20,9 @@ import java.net.URL;
 
 public class InvioDati extends AsyncTask<String,Void,String> {
     private Context context;
+    
 
-    public InvioDati(Context context){
+    public InvioDati(Context context, String codice, String nome, String cognome){
         this.context = context;
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -48,25 +49,18 @@ public class InvioDati extends AsyncTask<String,Void,String> {
 
         try {
             JSONObject jObject = new JSONObject(result);
-            try {
-                String messaggio = jObject.getString("messaggio");
-                System.out.println(messaggio);
-            }
-            catch (JSONException e) {
+            String codice = jObject.getString("codice");
+            System.out.println(codice);
 
-            }
+            String nome = jObject.getString("nome");
+            System.out.println(nome);
+
+            String cognome=jObject.getString("cognome");
+            System.out.println(cognome);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        /*String codice = jObject.getString("codice");
-        System.out.println(codice);
-
-        String nome = jObject.getString("nome");
-        System.out.println(nome);
-
-        String cognome=jObject.getString("cognome");
-        System.out.println(cognome);*/
         Toast.makeText(context,result,Toast.LENGTH_SHORT).show();
         //Intent i = new Intent();
     }
