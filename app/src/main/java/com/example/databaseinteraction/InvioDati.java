@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -41,13 +45,37 @@ public class InvioDati extends AsyncTask<String,Void,String> {
     }
     @Override
     protected void onPostExecute(String result) {
-        Intent i = new Intent();
+
+        try {
+            JSONObject jObject = new JSONObject(result);
+            try {
+                String messaggio = jObject.getString("messaggio");
+                System.out.println(messaggio);
+            }
+            catch (JSONException e) {
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        /*String codice = jObject.getString("codice");
+        System.out.println(codice);
+
+        String nome = jObject.getString("nome");
+        System.out.println(nome);
+
+        String cognome=jObject.getString("cognome");
+        System.out.println(cognome);*/
+        Toast.makeText(context,result,Toast.LENGTH_SHORT).show();
+        //Intent i = new Intent();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static String mostroDati(InputStream in) {
         StringBuilder sb = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in));) {
+        try{
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String nextLine = "";
             while ((nextLine = reader.readLine()) != null) {
                 sb.append(nextLine);
