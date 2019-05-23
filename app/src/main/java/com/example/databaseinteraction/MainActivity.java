@@ -46,14 +46,22 @@ public class MainActivity extends AppCompatActivity {
         String cognome = editCognome.getText().toString();
 
         if(dataControl(codiceBiglietto, nome, cognome)) {
-            new InvioDati(this, codiceBiglietto, nome, cognome).execute("http://192.168.1.174/DemoWebBeacon/ricerca.php?codice=" +
+            new InvioDati(this, codiceBiglietto, nome, cognome).execute("http://172.19.27.76/DemoWebBeacon/ricerca.php?codice=" +
                     codiceBiglietto + "&nome=" + nome + "&cognome=" + cognome);
         }
+
 
     }
 
     public boolean dataControl(String codice, String nome, String cognome){
-        return true;
+        if((codice != null) && (!codice.equals(""))){
+            if((nome != null) && (!nome.equals(""))){
+                if((cognome != null) && (!cognome.equals(""))){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 

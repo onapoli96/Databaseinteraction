@@ -20,7 +20,7 @@ import java.net.URL;
 
 public class InvioDati extends AsyncTask<String,Void,String> {
     private Context context;
-    
+
 
     public InvioDati(Context context, String codice, String nome, String cognome){
         this.context = context;
@@ -46,22 +46,20 @@ public class InvioDati extends AsyncTask<String,Void,String> {
     }
     @Override
     protected void onPostExecute(String result) {
-
+        String ce = "";
         try {
             JSONObject jObject = new JSONObject(result);
-            String codice = jObject.getString("codice");
-            System.out.println(codice);
-
-            String nome = jObject.getString("nome");
-            System.out.println(nome);
-
-            String cognome=jObject.getString("cognome");
-            System.out.println(cognome);
+            ce = jObject.getString("ce");
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Toast.makeText(context,result,Toast.LENGTH_SHORT).show();
+        if(ce.equals("SI")) {
+            Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(context, "l'utente non è presente", Toast.LENGTH_SHORT).show();
+        }
         //Intent i = new Intent();
     }
 
